@@ -9,8 +9,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,47 +22,63 @@ import java.util.StringTokenizer;
  */
 public class LeerDatos {
     
-    public static ArrayList<Patron> tokenizarDataSet(String nom){
-        StringTokenizer tokens;
+    public static ArrayList<Patron> tokenizarDataSet(){
+        
         File archivo;
         FileReader fr;
         BufferedReader br;
-        ArrayList al = new ArrayList();
+        ///Necesitamos la variable arratlist patrones para guardar los datos
+        ArrayList<Patron> instancias = new ArrayList<>();
+        String texto, aux;
+        LinkedList<String> lista = new LinkedList();
         try{
-            archivo=new File(nom);
-            fr= new FileReader(archivo);
-            br= new BufferedReader(fr);
+            //llamamos el metodo que permite cargar la ventana
+            JFileChooser file = new JFileChooser();
+            file.setCurrentDirectory(new File("./"));
+            file.showOpenDialog(file);
+            //abrimos el archivo seleccionado
+            File abre = file.getSelectedFile();
             
-            String linea, temp;
+            //recorremos el archivo y lo leemos
+            if (abre != null) {
+                FileReader archivos = new FileReader(abre);
+                BufferedReader lee = new BufferedReader(archivos);
 
-            while((linea=br.readLine())!=null){
-                tokens = new StringTokenizer (linea,",");
-                    while(tokens.hasMoreTokens()){
-                        temp=tokens.nextToken();
-                           System.out.println(temp);
-                    }
+                while ((aux = lee.readLine()) != null) {
+                    texto = aux;
+                    lista.add(texto);
+                }
+                lee.close();
                 
-            }
-            br.close();
-            fr.close();
+                ArrayList<String> lista2 = new ArrayList<>();
+                String clase = "";
+                for (int i = 0; i < lista.size(); i++) {
+                    StringTokenizer st = new StringTokenizer(lista.get(i), ",");
+
+                    while (st.hasMoreTokens()) {
+                        lista2.add(st.nextToken());
+                    }
+                double[] vector = new double[lista2.size() - 1];
+                
+                for (int x = 0; x < lista2.size() - 1; x++) {
+                        vector[x] = Double.parseDouble(lista2.get(x));
+                    }
+                    // el ultimo del lista
+                    clase = lista2.get(lista2.size()-1);
+                    // a la coleccion de patrones se agrega un nuevo patron
+                    instancias.add(new Patron(clase,"", vector));
+                   // patrones.add();
+                    lista2.clear();
+                }
+            }                         
+        }catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex + ""
+                    + "\nNo se ha encontrado el archivo",
+                    "ADVERTENCIA!!!", JOptionPane.WARNING_MESSAGE);
             
-        }catch(Exception e){
         }
-        
-        
-        
-        
 
-
-    
-    return al;
+        return instancias;
     }
     
-    
-    public static void main(String ags[]){
-
-        LeerDatos l1= new LeerDatos();
-        l1.tokenizarDataSet("iris.txt");
-    
-    }
 }
