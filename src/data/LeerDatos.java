@@ -46,22 +46,22 @@ public class LeerDatos {
 
                 while ((aux = lee.readLine()) != null) {
                     texto = aux;
-                    lista.add(texto);
+                    lista.add(texto);// Aqui agrega todo el data set
                 }
-                lee.close();
+                lee.close();//cierra el archivo
                 
                 ArrayList<String> lista2 = new ArrayList<>();
-                String clase = "";
+                String clase = "";//////////////
                 for (int i = 0; i < lista.size(); i++) {
                     StringTokenizer st = new StringTokenizer(lista.get(i), ",");
 
                     while (st.hasMoreTokens()) {
                         lista2.add(st.nextToken());
                     }
-                double[] vector = new double[lista2.size() - 1];
+                double[] vector = new double[lista2.size() - 1];//para detectar el ultimo elemento
                 
                 for (int x = 0; x < lista2.size() - 1; x++) {
-                        vector[x] = Double.parseDouble(lista2.get(x));
+                        vector[x] = Double.parseDouble(lista2.get(x));////
                     }
                     // el ultimo del lista
                     clase = lista2.get(lista2.size()-1);
@@ -74,8 +74,7 @@ public class LeerDatos {
         }catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex + ""
                     + "\nNo se ha encontrado el archivo",
-                    "ADVERTENCIA!!!", JOptionPane.WARNING_MESSAGE);
-            
+                    "ADVERTENCIA!!!", JOptionPane.WARNING_MESSAGE);            
         }
 
         return instancias;
