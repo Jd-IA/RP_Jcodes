@@ -18,17 +18,17 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author working
+ * @author asuka
  */
-public class LeerDatos {
+public class LeerData {
     
-    public static ArrayList<Patron> tokenizarDataSet(){
+    public static ArrayList<Pattern> tokenizarDataSet(){
         
         File archivo;
         FileReader fr;
         BufferedReader br;
         ///Necesitamos la variable arratlist patrones para guardar los datos
-        ArrayList<Patron> instancias = new ArrayList<>();
+        ArrayList<Pattern> instancias = new ArrayList<>();
         String texto, aux;
         LinkedList<String> lista = new LinkedList();
         try{
@@ -66,7 +66,7 @@ public class LeerDatos {
                     // el ultimo del lista
                     clase = lista2.get(lista2.size()-1);
                     // a la coleccion de patrones se agrega un nuevo patron
-                    instancias.add(new Patron(clase,"", vector));
+                    instancias.add(new Pattern(clase,"", vector));
                    // patrones.add();
                     lista2.clear();
                 }

@@ -5,14 +5,18 @@
  */
 package rp2021a;
 
-import data.LeerDatos;
-import data.Patron;
+import Clasificador.Knn;
+import Clasificador.MinimaDistancia;
+import HerramientasClasificadores.LeerDatos;
+import HerramientasClasificadores.Patron;
+import data.LeerData;
+import data.Pattern;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  *
- * @author working
+ * @author asuka
  */
 public class RP2021A {
 
@@ -20,44 +24,51 @@ public class RP2021A {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here        
-        /**distancias 
-        (2.4,5.6,3)   (5,6,3) d1:
-        (1,2) (6.7,7.8)  d2:
-        **/
-        //Patron p1 = new Patron("", "", new double[]{1,2});
-        //Patron p2 = new Patron("", "", new double[]{6.7,7.8});
-        //System.out.println(p2.calcularDistancia(p1)); 
         
-        ArrayList<Patron> instancias = LeerDatos.tokenizarDataSet();
-        ArrayList<Patron>  promedios= new ArrayList<>();
-        ArrayList<Patron>  nombres= new ArrayList<>();
-        
-        Patron j = new Patron();
-//        Patron j2 = new Patron("","", new double[]{2.4,3.3,5.6,7.8}) 
-//        j.ContarClases(instancias);
-        
-
-//        System.out.println(Arrays.toString(j.entrenamiento(instancias)));
-        nombres=j.contarClases(instancias);
-        promedios=j.entrenamiento(instancias);
+        //Minima Distancia 
+//        /**distancias 
+//        (2.4,5.6,3)   (5,6,3) d1:
+//        (1,2) (6.7,7.8)  d2:
+//        **/
+//        //Patron p1 = new Patron("", "", new double[]{1,2});
+//        //Patron p2 = new Patron("", "", new double[]{6.7,7.8});
+//        //System.out.println(p2.calcularDistancia(p1)); 
+//        
+//        ArrayList<Pattern> instancias = LeerData.tokenizarDataSet();
+//        ArrayList<Pattern>  promedios= new ArrayList<>();
+//        ArrayList<Pattern>  nombres= new ArrayList<>();
+//
+//        String res;
+//        Pattern j = new Pattern();
+//
+//
+//        nombres=j.contarClases(instancias);
 //        promedios=  j.entrenamiento(instancias);
-             System.out.println();
-
-//System.out.println(Arrays.toString(j.ContarClases(instancias)));
-        
-
-                
-//        double[] distancias = new double[instancias.size()];
+////          
+////
+////
+////                
+////        double[] distancias2 = new double[promedios.size()];
+////        
+////        Patron j3 = new Patron("","", new double[]{1,1.9,0,0,0.95,1});//punto a clasificar zapato
+////        for(int x = 0 ; x<  promedios.size();x++){
+////          distancias2[x] =    promedios.get(x).calcularDistancia(j3);
+////                             //Claserepresentativos.calsificar(insatncias,j);//debe regresar un string de la clase
+////        }
+////        
+////        res=j.clasificar(promedios ,distancias2);
 //        
-//        Patron j = new Patron("","", new double[]{2.4,3.3,5.6,7.8});
-//        for(int x = 0 ; x<  instancias.size();x++){
-//          distancias[x] =    instancias.get(x).calcularDistancia(j);
-//            
-//        }
-//        
-//        System.out.println();
-        // TODO: TOKENIZADOR PARA PODER SEPARAR POR COMAS Y GENERAR UN COLECCION DE PATRONES
+//        System.out.println(); 
+        //KNN
+        LeerDatos.leerDatos(new int[]{1,1,1,1,1,1});        
+        MinimaDistancia minimadistancia = new MinimaDistancia();
+        minimadistancia.entrenar(LeerDatos.instancias);
+        minimadistancia.clasificar(LeerDatos.instancias);
+        System.out.println(minimadistancia.getMc().toString());
+        Knn knn = new Knn(3);
+        knn.entrenar(LeerDatos.instancias);
+        knn.clasificar((ArrayList<Patron>)LeerDatos.instancias.clone());
+        System.out.println(knn.getMc().toString());        
     }
     
 }
